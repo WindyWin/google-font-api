@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Card, CardContent, CardHeader, Typography } from '@mui/material'
+import { Card, CardContent, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { getFontLink } from '../../services/googleFontService'
 import { FamilyMetadataList } from '../../types'

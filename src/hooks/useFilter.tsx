@@ -45,20 +45,22 @@ export const useFilter = () => {
 
 
 
-    const addUpdateFilter = (key: string, value: number | string | string[] | boolean) => {
+    const addUpdateFilter = (key: keyof IFilterState
+        , value: number | string | string[] | boolean) => {
         const newFilterState = { ...filterState, [key]: value };
         setFilterState(newFilterState);
         const newFilterParam = Object.entries(newFilterState)
             .filter(([key, value]) => value !== undefined && value !== initialState[key])
-            .map(([key, value]) => [key, Array.isArray(value) ? value.join(",") : value.toString()]);
+            .map(([key, value]) => [key, Array.isArray(value) ? value.join(",") : value?.toString() ?? ""]);
         setFilterParam(new URLSearchParams(newFilterParam));
     }
 
 
-    const removeFilter = (key: string) => {
-        const newFilterState = { ...filterState, [key]: initialState[key]! };
-        setFilterParam(newFilterState);
-    }
+    // const removeFilter = (key: keyof IFilterState
+    // ) => {
+    //     const newFilterState = { ...filterState, [key]: initialState[key] };
+    //     setFilterParam(new URLSearchParams(newFilterState));
+    // }
 
     const removeAllFilter = () => {
         setFilterState(initialState);
@@ -66,7 +68,7 @@ export const useFilter = () => {
     }
 
 
-    return { filterState, setFilterState, addUpdateFilter, removeFilter, removeAllFilter }
+    return { filterState, setFilterState, addUpdateFilter, removeAllFilter }
 
 
 }

@@ -1,12 +1,11 @@
 import { useTheme } from "@emotion/react";
-import { Checkbox, Divider, FormControl, FormControlLabel, Grid, IconButton, ListItemText, MenuItem, Pagination, Select, Slider, Typography } from "@mui/material";
+import { Checkbox, Divider, FormControl, FormControlLabel, Grid, IconButton, ListItemText, MenuItem, Select, Slider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import FontItem from "../../components/common/FontItem";
 import { useFilter } from "../../hooks/useFilter";
 import { usePagination } from "../../hooks/usePagination";
 import { selectFontsList, setFontsList } from "../../redux/fontSlice";
-import { store, useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { getAllFonts } from "../../services/googleFontService";
 import { FamilyMetadataList } from "../../types";
 import { HomeStyled } from "./Home.styled";
@@ -72,7 +71,7 @@ function Home() {
     }, []);
 
     const handleScrollToBottom = (e: WheelEvent) => {
-        const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+        const { scrollTop, clientHeight, scrollHeight } = e.currentTarget as HTMLBodyElement;
         if (scrollTop + clientHeight >= scrollHeight) {
             console.log("bottom");
             goToNextPage();
@@ -129,7 +128,7 @@ function Home() {
 
 
     return (
-        <HomeStyled onWheel={handleScrollToBottom} theme={theme}>
+        <HomeStyled theme={theme}>
             <div className="action-bar">
                 <div>
                     <i className="fa-solid fa-magnifying-glass"></i>
@@ -166,7 +165,7 @@ function Home() {
                     </Typography>
                     <Slider style={{ minWidth: "150px", marginLeft: "10px" }}
                         value={filterState["preview.size"]}
-                        onChange={(_e, v) => { addUpdateFilter("preview.size", v) }} min={8} max={300}></Slider>
+                        onChange={(_e, v) => { addUpdateFilter("preview.size", v as number) }} min={8} max={300}></Slider>
                 </div>
                 <IconButton
                     onClick={removeAllFilter}

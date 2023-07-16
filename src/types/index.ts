@@ -76,6 +76,7 @@ export interface IFilterState {
   vfonly: boolean
   coloronly: boolean
   sort: "newest" | "popularity" | "trending" | "name"
+  [key: string]: string | string[] | number | boolean | undefined;
 }
 
 export interface FontResponse {

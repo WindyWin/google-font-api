@@ -112,6 +112,7 @@ function Home() {
             return filteredFonts;
         }, [allFonts, filterState])
 
+    //@ts-ignore
     const handleScrollToBottom: WheelEventHandler<HTMLDivElement> = useCallback(
         (event: WheelEvent) => {
             const { scrollTop, clientHeight, scrollHeight } = event.currentTarget as HTMLElement;

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FamilyMetadataList } from "../types";
 import jsonInitData from './../assets/data/fontData.json' assert { type: 'json' };
-import { AllFontsResponse } from './../types/index';
 import { RootState } from "./store";
 
 

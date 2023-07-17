@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Checkbox, Divider, FormControl, FormControlLabel, Grid, IconButton, ListItemText, MenuItem, Select, Slider, Typography } from "@mui/material";
-import { WheelEventHandler, useCallback, useEffect, useMemo, useState } from "react";
+import { EventHandler, useCallback, useEffect, useState } from "react";
 import FontItem from "../../components/common/FontItem";
 import { useFilter } from "../../hooks/useFilter";
 import { usePagination } from "../../hooks/usePagination";

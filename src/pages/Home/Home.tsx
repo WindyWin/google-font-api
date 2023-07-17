@@ -1,6 +1,7 @@
+
 import { useTheme } from "@emotion/react";
 import { Checkbox, Divider, FormControl, FormControlLabel, Grid, IconButton, ListItemText, MenuItem, Select, Slider, Typography } from "@mui/material";
-import { EventHandler, useCallback, useEffect, useState } from "react";
+import { WheelEventHandler, useCallback, useEffect, useState } from "react";
 import FontItem from "../../components/common/FontItem";
 import { useFilter } from "../../hooks/useFilter";
 import { usePagination } from "../../hooks/usePagination";
@@ -111,9 +112,8 @@ function Home() {
             return filteredFonts;
         }, [allFonts, filterState])
 
-
-    const handleScrollToBottom: EventHandler<HTMLElement> = useCallback(
-        (event: Event) => {
+    const handleScrollToBottom: WheelEventHandler<HTMLDivElement> = useCallback(
+        (event: WheelEvent) => {
             const { scrollTop, clientHeight, scrollHeight } = event.currentTarget as HTMLElement;
             if (scrollTop + clientHeight >= scrollHeight - 5) {
                 if (goToNextPage())

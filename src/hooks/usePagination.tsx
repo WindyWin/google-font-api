@@ -4,10 +4,16 @@ export const usePagination = (initialPageSize: number, initMaximumItems: number)
     const [pageNumber, setPageNumber] = useState(1);
     const [maximumItems, setMaximumItems] = useState(initMaximumItems);
 
-    function goToNextPage() {
-        setPageNumber((prevPageNumber) => Math.min(prevPageNumber + 1, Math.ceil(maximumItems / initialPageSize)));
+    const goToNextPage = () => {
+        console.log(pageNumber);
+        console.log(pageNumber * initialPageSize, maximumItems)
+        if (pageNumber * initialPageSize < maximumItems) {
+            setPageNumber(pageNumber => pageNumber + 1);
+            return true;
+        }
+        return false;
     }
-    function updateNewListPagination(maximumItems: number) {
+    const updateNewListPagination = (maximumItems: number) => {
         setMaximumItems(maximumItems);
         setPageNumber(1);
     }

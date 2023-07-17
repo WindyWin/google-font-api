@@ -69,7 +69,7 @@ export interface IFilterState {
   query: string
   "preview.text": string
   "preview.size": number
-  "preview.text_type": string
+  "preview.text_type": "sentence" | "paragraph" | "custom"
   category: string[]
   subset: string
   stylecount: number
@@ -77,6 +77,9 @@ export interface IFilterState {
   coloronly: boolean
   sort: "newest" | "popularity" | "trending" | "name"
   [key: string]: string | string[] | number | boolean | undefined;
+}
+export interface IFilterStateParam {
+  [key: keyof IFilterState]: string | string[] | number | boolean | undefined;
 }
 
 export interface FontResponse {

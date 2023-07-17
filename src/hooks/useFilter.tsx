@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { IFilterState } from "../types";
+import { IFilterState, IFilterStateParam } from "../types";
 
 
 const initialState: IFilterState = {
     "query": "",
-    "preview.text": "",
+    "preview.text": "The quick brown fox jumps over the lazy dog",
     "preview.size": 40,
     "preview.text_type": "sentence",
     "category": ['Display', 'Handwriting', 'Monospace', 'Sans Serif', 'Serif'],
@@ -19,13 +19,11 @@ const initialState: IFilterState = {
 export const useFilter = () => {
     const [filterParam, setFilterParam] = useSearchParams();
 
-    const [filterState, setFilterState] = useState<IFilterState>({
-        ...initialState
-    });
-
-    useEffect(() => {
+    const filterParamConverter = () => {
         let filterObject: { [k: string]: string | string[] | boolean | number } = Object.fromEntries(filterParam);
-
+        if (filterObject["preview.size"]) {
+            filterObject = { ...filterObject, "preview.size": parseInt(filterObject["preview.size"] as string) };
+        }
         // cast value type not string
         if (filterObject["category"]) {
             filterObject = { ...filterObject, "category": (filterObject["category"] as string).split(",").map(String) };
@@ -39,10 +37,12 @@ export const useFilter = () => {
         if (filterObject["stylecount"]) {
             filterObject = { ...filterObject, "stylecount": parseInt(filterObject["stylecount"] as string) };
         }
+        return filterObject
+    }
 
-        setFilterState({ ...initialState, ...filterObject });
-    }, [])
-
+    const [filterState, setFilterState] = useState<IFilterState>({
+        ...initialState, ...filterParamConverter()
+    });
 
 
     const addUpdateFilter = (key: keyof IFilterState
@@ -54,7 +54,14 @@ export const useFilter = () => {
             .map(([key, value]) => [key, Array.isArray(value) ? value.join(",") : value?.toString() ?? ""]);
         setFilterParam(new URLSearchParams(newFilterParam));
     }
-
+    const addUpdateMultiFilter = (object: IFilterStateParam) => {
+        const newFilterState: IFilterState = { ...filterState, ...object };
+        setFilterState(newFilterState);
+        const newFilterParam = Object.entries(newFilterState)
+            .filter(([key, value]) => value !== undefined && value !== initialState[key])
+            .map(([key, value]) => [key, Array.isArray(value) ? value.join(",") : value?.toString() ?? ""]);
+        setFilterParam(new URLSearchParams(newFilterParam));
+    }
 
     // const removeFilter = (key: keyof IFilterState
     // ) => {
@@ -68,7 +75,7 @@ export const useFilter = () => {
     }
 
 
-    return { filterState, setFilterState, addUpdateFilter, removeAllFilter }
+    return { filterState, setFilterState, addUpdateMultiFilter, addUpdateFilter, removeAllFilter }
 
 
 }

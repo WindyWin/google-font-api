@@ -1,8 +1,15 @@
 import styled from "@emotion/styled"
 export const HomeStyled = styled.div`
-    .action-bar{
+    section{
+        padding: 0 60px;
+    }
+    .action-bar-container{
+        background-color: white;
         position: sticky;
-        top: 10px;
+        padding:10px 60px;
+        top: 0px;
+    }
+    .action-bar{
         display:flex;
         justify-content:space-between;
         width:100%;
@@ -36,12 +43,22 @@ export const HomeStyled = styled.div`
         }
         
     }
+
     .filter-section{
         display:flex;
+        padding: 0 60px;
         gap:2rem;
     }
     .sort-section{
         display:flex;
         justify-content:space-between;
+    }
+    .font-collection-section{
+        height:100vh;
+        overflow-y:scroll;
+        &::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; /* make scrollbar transparent */
+        }
     }
 `

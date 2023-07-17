@@ -21,7 +21,7 @@ function FontItem({ data, fontSize, exampleText }: IFontItemProps) {
     useEffect(() => {
         getFontLink(data.family)
             .then((font) => {
-                const fontFace = new FontFace(data.family, `url(${font.items[0].files.regular})`)
+                const fontFace = new FontFace(data.family, `url(${font.items[0].files.regular.replace("http", "https")})`)
                 fontFace.load().then((loadedFont) => {
                     document.fonts.add(loadedFont)
                     setLoading(false)

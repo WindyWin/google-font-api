@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { Card, CardContent, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom"
 import { getFontLink } from '../../services/googleFontService'
 import { FamilyMetadataList } from '../../types'
 
@@ -18,6 +19,7 @@ const CardStyle = styled(Card)`
 
 function FontItem({ data, fontSize, exampleText }: IFontItemProps) {
     const [loading, setLoading] = useState<boolean>(true)
+    const navigate = useNavigate();
     useEffect(() => {
         getFontLink(data.family)
             .then((font) => {
@@ -32,7 +34,7 @@ function FontItem({ data, fontSize, exampleText }: IFontItemProps) {
     return (
 
         loading ? <Typography>Loading...</Typography> :
-            <CardStyle>
+            <CardStyle onClick={() => { navigate(`/font/${data.family}`) }}>
                 <Typography variant="body1">{data.family}</Typography>
                 <Typography variant="subtitle2">{data.designers.join(", ")}</Typography>
                 <CardContent>

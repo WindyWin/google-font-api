@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/layout";
+import ThemeProvider from "../context/ThemeContext";
 import { FontDetail, Home, NotFound } from "../pages";
+
 
 const router = createBrowserRouter([
     {
-        element: <Layout />
-
+        element: <ThemeProvider><Layout /></ThemeProvider>
         ,
         errorElement: <NotFound />,
         children: [

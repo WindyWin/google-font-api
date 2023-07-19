@@ -102,3 +102,8 @@ export interface FontItem {
 export interface Files {
   [key: string]: string
 }
+
+export interface MyFontFace {
+  variantName: string
+  data: FontFace
+}
